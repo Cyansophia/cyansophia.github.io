@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>About — Lanjia</title>
+  <link rel="stylesheet" href="assets/css/style.css" />
+</head>
+<body>
+  <header class="site-header">
+    <div class="container">
+      <div class="site-title"><a href="index.html">Lanjia</a></div>
+      <nav class="site-nav">
+        <a href="index.html">Home</a>
+        <a href="about.html" class="active">About</a>
+        <a href="articles/index.html">Articles</a>
+        <a href="paintings/index.html">Graphics</a>
+        <a href="tools/index.html">Tools</a>
+        <a href="other-projects/index.html">Other projects</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <div class="container">
+
+      <!-- ============================================================
+           👇 WRITE YOUR OWN "ABOUT" PAGE HERE 👇
+           Everything between the two yellow markers is yours to rewrite.
+           Make it sound like YOU — funny, poetic, dorky, formal — your call.
+
+           Tips:
+           - Each <p>...</p> is one paragraph.
+           - Each <h2>...</h2> is a section heading.
+           - You can delete sections you don't want, or add new ones by
+             copying one of the <h2>+<p> blocks below.
+           - To make a word italic: <em>word</em>
+           - To make a word bold:  <strong>word</strong>
+           - To add a link:        <a href="https://...">link text</a>
+           ============================================================ -->
+
+      <div class="about-layout">
+        <div class="about-text">
+          <span class="kicker">About</span>
+          <h1>A few <em>interesting things</em> about me.</h1>
+
+          <h2>Who I am</h2>
+          <p>
+            I'm an undergraduate psychology student who is curious about
+            how people think and feel. Outside of degree I paint, take
+            photos, write articles and code stuffs.
+          </p>
+
+          <h2>Why this site exists</h2>
+          <p>
+            LinkedIn feels too professional and uncute for someone like me :&gt;
+          </p>
+
+          <h2>Say hi</h2>
+          <p>
+            You can reach me at
+            <a href="mailto:lanjia.wei@kcl.ac.uk">lanjia.wei@kcl.ac.uk</a>.
+          </p>
+          <p>
+            If you are interested in collaboration,
+            <a href="assets/lanjia-cv.pdf" download>download a copy of my CV here</a>.
+          </p>
+        </div>
+
+        <!-- 👇 RIGHT SIDEBAR: portrait — save your photo as assets/images/lanjia.jpg -->
+        <aside class="about-sidebar">
+          <img class="portrait"
+               src="assets/images/lanjia.jpg"
+               alt="Portrait of Lanjia" />
+        </aside>
+        <!-- 👆 If you rename the file, change the src above to match. -->
+      </div>
+
+      <!-- 👆 END OF YOUR ABOUT PAGE CONTENT 👆 -->
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      &copy; <span id="year">2026</span> Lanjia
+    </div>
+  </footer>
+
+  <script src="assets/js/main.js"></script>
+  <script>document.getElementById("year").textContent = new Date().getFullYear();</script>
+</body>
+</html>

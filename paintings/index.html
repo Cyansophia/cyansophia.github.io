@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Graphics — Lanjia</title>
+  <link rel="stylesheet" href="../assets/css/style.css" />
+</head>
+<body>
+  <header class="site-header">
+    <div class="container">
+      <div class="site-title"><a href="../index.html">Lanjia</a></div>
+      <nav class="site-nav">
+        <a href="../index.html">Home</a>
+        <a href="../about.html">About</a>
+        <a href="../articles/index.html">Articles</a>
+        <a href="index.html" class="active">Graphics</a>
+        <a href="../tools/index.html">Tools</a>
+        <a href="../other-projects/index.html">Other projects</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <div class="container">
+      <span class="kicker">Visual work</span>
+      <h1>Graphics</h1>
+      <p class="lead">
+        A gallery of my paintings, paper-cuts, and photography. Click any image to see it larger.
+      </p>
+
+      <div class="gallery">
+
+        <!-- 🐉 Grouped set: three photos of one paper-cut, shown together.
+             Clicking any photo opens it full-size with the caption below. -->
+        <div class="gallery-group">
+          <p class="gallery-group-title">Paper-cut · Year of the Dragon</p>
+          <div class="gallery-group-items">
+            <img src="../assets/images/dragon-papercut-1.jpg"
+                 alt="Paper-cut of a dragon against a sunset sky"
+                 data-caption="Paper cut celebrating the Year of the Dragon" />
+            <img src="../assets/images/dragon-papercut-2.jpg"
+                 alt="Paper-cut of a dragon against a sunset sky, different angle"
+                 data-caption="Paper cut celebrating the Year of the Dragon" />
+            <img src="../assets/images/dragon-papercut-3.jpg"
+                 alt="Two paper-cut dragons seen through a window at dusk"
+                 data-caption="Paper cut celebrating the Year of the Dragon" />
+          </div>
+        </div>
+
+        <!-- 🎄 Grouped set: two Christmas photos, 2022–2023 -->
+        <div class="gallery-group">
+          <p class="gallery-group-title">Christmas 2022–2023</p>
+          <div class="gallery-group-items gallery-group-items--2">
+            <img src="../assets/images/christmas-1.jpg"
+                 alt="Christmas 2022–2023 photo 1"
+                 data-caption="Christmas 2022–2023" />
+            <img src="../assets/images/christmas-2.jpg"
+                 alt="Christmas 2022–2023 photo 2"
+                 data-caption="Christmas 2022–2023" />
+          </div>
+        </div>
+
+        <!-- 🎁 Single piece: gift for my mother -->
+        <div class="gallery-group">
+          <p class="gallery-group-title">Gift for my mother</p>
+          <div class="gallery-group-items gallery-group-items--1">
+            <img src="../assets/images/gift-mother.jpg"
+                 alt="Gift for my mother"
+                 data-caption="Gift for my mother" />
+          </div>
+        </div>
+
+        <!-- 📷 Grouped set: eight photos from a day in Oxford -->
+        <div class="gallery-group">
+          <p class="gallery-group-title">Day trip to Oxford</p>
+          <div class="gallery-group-items gallery-group-items--4">
+            <img src="../assets/images/oxford-1.jpg" alt="Oxford day trip photo 1" data-caption="Day trip to Oxford" />
+            <img src="../assets/images/oxford-2.jpg" alt="Oxford day trip photo 2" data-caption="Day trip to Oxford" />
+            <img src="../assets/images/oxford-3.jpg" alt="Oxford day trip photo 3" data-caption="Day trip to Oxford" />
+            <img src="../assets/images/oxford-4.jpg" alt="Oxford day trip photo 4" data-caption="Day trip to Oxford" />
+            <img src="../assets/images/oxford-5.jpg" alt="Oxford day trip photo 5" data-caption="Day trip to Oxford" />
+            <img src="../assets/images/oxford-6.jpg" alt="Oxford day trip photo 6" data-caption="Day trip to Oxford" />
+            <img src="../assets/images/oxford-7.jpg" alt="Oxford day trip photo 7" data-caption="Day trip to Oxford" />
+            <img src="../assets/images/oxford-8.jpg" alt="Oxford day trip photo 8" data-caption="Day trip to Oxford" />
+          </div>
+        </div>
+
+        <!-- Example (currently disabled — uncomment after you add a real file):
+        <img src="../assets/images/sunset.jpg" alt="Sunset over the lake" />
+        -->
+
+      </div>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      &copy; <span id="year">2026</span> Lanjia
+    </div>
+  </footer>
+
+  <script src="../assets/js/main.js"></script>
+  <script>document.getElementById("year").textContent = new Date().getFullYear();</script>
+</body>
+</html>

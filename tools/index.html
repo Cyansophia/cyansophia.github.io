@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Tools — Lanjia</title>
+  <link rel="stylesheet" href="../assets/css/style.css" />
+</head>
+<body>
+  <header class="site-header">
+    <div class="container">
+      <div class="site-title"><a href="../index.html">Lanjia</a></div>
+      <nav class="site-nav">
+        <a href="../index.html">Home</a>
+        <a href="../about.html">About</a>
+        <a href="../articles/index.html">Articles</a>
+        <a href="../paintings/index.html">Graphics</a>
+        <a href="index.html" class="active">Tools</a>
+        <a href="../other-projects/index.html">Other projects</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <div class="container">
+      <span class="kicker">Mini web widgets</span>
+      <h1>Tools</h1>
+      <p class="lead">
+        Small web widgets I'm building as I learn to code. Each one is a
+        tiny, self-contained project.
+      </p>
+
+      <ul class="entry-list">
+
+        <!-- 👇 First real tool: prototyped with Lovable, embedded live below.
+             Rename the title to whatever the tool actually is. -->
+        <li>
+          <span class="entry-title">Feastgerator</span>
+          <span class="entry-date">
+            April 2026 · prototyped with
+            <a href="https://lovable.dev" target="_blank" rel="noopener">Lovable</a>,
+            an AI-assisted web builder — embedded live below.
+          </span>
+          <p class="tool-note">
+            <strong>Feastgerator</strong> turns whatever's left in your fridge
+            into recipe ideas, so less food goes to waste. I'm still learning
+            to write everything from scratch, so for this first experiment I
+            used Lovable to prototype the idea end-to-end. The live demo is
+            embedded right here; if you'd rather open it in its own tab,
+            <a href="https://feastgerator.lovable.app/"
+               target="_blank" rel="noopener">click here</a>.
+          </p>
+          <div class="tool-embed">
+            <iframe
+              src="https://feastgerator.lovable.app/"
+              title="Feastgerator — live demo"
+              loading="lazy"
+              allow="clipboard-write"
+              referrerpolicy="no-referrer-when-downgrade"></iframe>
+          </div>
+        </li>
+
+      </ul>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      &copy; <span id="year">2026</span> Lanjia
+    </div>
+  </footer>
+
+  <script src="../assets/js/main.js"></script>
+  <script>document.getElementById("year").textContent = new Date().getFullYear();</script>
+</body>
+</html>

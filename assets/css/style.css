@@ -1,0 +1,805 @@
+/* ============================================
+   Lanjia's personal site — shared stylesheet
+   ============================================ */
+
+/* Import elegant fonts from Google (free, loads on page view) */
+@import url('https://fonts.googleapis.com/css2?family=Caveat:wght@400;500;600;700&family=Fraunces:opsz,wght@9..144,300;9..144,400;9..144,500;9..144,600;9..144,700&family=Inter:wght@300;400;500;600&family=Noto+Serif:ital,wght@0,400;0,500;1,400;1,500&display=swap');
+
+:root {
+  --bg: #f7f3ec;
+  --bg-elevated: #fffdf8;
+  --ink: #2a2724;
+  --muted: #7a716a;
+  --accent: #b85c4d;          /* warm terracotta */
+  --accent-deep: #8f3f31;
+  --accent-soft: #f0d9d1;
+  --border: #e8dfd0;
+  --shadow: 0 1px 3px rgba(60, 40, 30, 0.04), 0 8px 24px rgba(60, 40, 30, 0.06);
+  --shadow-lift: 0 2px 6px rgba(60, 40, 30, 0.08), 0 16px 36px rgba(60, 40, 30, 0.1);
+  --max-width: 880px;
+  --serif: 'Fraunces', Georgia, 'Times New Roman', serif;
+  --sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  --hand: 'Caveat', 'Brush Script MT', cursive;
+}
+
+/* ============================================
+   Home-page hero animation (brainwave rings)
+   ============================================ */
+.hero-animation {
+  position: relative;
+  width: 100%;
+  min-height: 520px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 1rem 0 3rem;
+  overflow: hidden;
+  border-radius: 12px;
+  background:
+    radial-gradient(ellipse at center,
+      rgba(255, 251, 243, 0.9) 0%,
+      rgba(247, 243, 236, 0.3) 55%,
+      transparent 80%),
+    var(--bg);
+}
+
+.hero-animation__svg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+
+/* Each wavy ring rotates slowly. Different rings get different speeds
+   via inline animation-duration set in JS. Inner rings = opaque, outer
+   = faint (opacity set inline per-path). */
+.hero-animation__svg path {
+  fill: none;
+  stroke: var(--accent);
+  stroke-width: 1;
+  /* Sharp corners at every wave peak — mitered joins, no rounding.
+     High miter limit so acute spikes don't get clipped to bevels. */
+  stroke-linejoin: miter;
+  stroke-linecap: butt;
+  stroke-miterlimit: 20;
+  transform-origin: center;
+  transform-box: fill-box;
+  animation: ring-rotate 40s linear infinite;
+  will-change: transform;
+}
+
+@keyframes ring-rotate {
+  from { transform: rotate(0deg); }
+  to   { transform: rotate(360deg); }
+}
+
+/* Gentle breathing of the whole cluster */
+.hero-animation__svg {
+  animation: cluster-breathe 8s ease-in-out infinite;
+}
+
+@keyframes cluster-breathe {
+  0%, 100% { transform: scale(1); }
+  50%      { transform: scale(1.03); }
+}
+
+/* Text stack in the center — sits above the SVG */
+.hero-animation__text {
+  position: relative;
+  z-index: 2;
+  text-align: center;
+  padding: 2rem 1rem;
+}
+
+.hero-animation__text .line-en {
+  font-family: var(--hand);
+  font-size: clamp(2.4rem, 6vw, 4rem);
+  font-weight: 600;
+  color: var(--ink);
+  line-height: 1.1;
+  margin-bottom: 0.5rem;
+  letter-spacing: 0.01em;
+}
+
+.hero-animation__text .line-pinyin {
+  /* Noto Serif first — it has proper glyphs for all pinyin tone marks
+     (ǐ ǎ ǒ ā etc). Fraunces doesn't, so we'd get broken rendering. */
+  font-family: 'Noto Serif', Georgia, 'Times New Roman', serif;
+  font-style: italic;
+  font-size: clamp(1rem, 2.2vw, 1.35rem);
+  color: var(--accent-deep);
+  font-weight: 400;
+  margin-bottom: 0.35rem;
+  letter-spacing: 0.03em;
+}
+
+.hero-animation__text .line-fr {
+  font-family: var(--serif);
+  font-size: clamp(0.95rem, 2vw, 1.2rem);
+  color: var(--muted);
+  font-weight: 300;
+  font-style: italic;
+  letter-spacing: 0.02em;
+}
+
+/* Respect users who prefer reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  .hero-animation__svg,
+  .hero-animation__svg path {
+    animation: none !important;
+  }
+}
+
+@media (max-width: 500px) {
+  .hero-animation { min-height: 420px; }
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  font-size: 17px;
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: var(--sans);
+  color: var(--ink);
+  background: var(--bg);
+  line-height: 1.7;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  -webkit-font-smoothing: antialiased;
+}
+
+a {
+  color: var(--accent-deep);
+  text-decoration: none;
+  border-bottom: 1px solid transparent;
+  transition: border-color 0.2s ease, color 0.2s ease;
+}
+
+a:hover {
+  border-bottom-color: var(--accent);
+  color: var(--accent);
+}
+
+/* --- Layout --- */
+.container {
+  width: 100%;
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding: 0 1.5rem;
+}
+
+main {
+  flex: 1;
+  padding: 3rem 0 5rem;
+}
+
+/* --- Header / nav --- */
+.site-header {
+  padding: 1.5rem 0;
+  background: var(--bg);
+  border-bottom: 1px solid var(--border);
+}
+
+.site-header .container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.site-title {
+  font-family: var(--serif);
+  font-size: 1.5rem;
+  font-weight: 500;
+  font-style: italic;
+  letter-spacing: 0.01em;
+}
+
+.site-title a {
+  color: var(--ink);
+  border-bottom: none;
+}
+.site-title a:hover { color: var(--accent); }
+
+.site-nav {
+  display: flex;
+  gap: 1.75rem;
+  flex-wrap: wrap;
+}
+
+.site-nav a {
+  color: var(--muted);
+  font-size: 0.92rem;
+  font-weight: 400;
+  letter-spacing: 0.02em;
+}
+
+.site-nav a.active {
+  color: var(--accent);
+  border-bottom: 1px solid var(--accent);
+}
+.site-nav a:hover { color: var(--ink); }
+
+/* --- Headings --- */
+h1, h2, h3 {
+  font-family: var(--serif);
+  font-weight: 500;
+  line-height: 1.2;
+  color: var(--ink);
+  letter-spacing: -0.01em;
+}
+
+h1 {
+  font-size: 2.75rem;
+  margin-bottom: 1rem;
+  font-weight: 400;
+}
+
+h1 em {
+  font-style: italic;
+  color: var(--accent);
+  font-weight: 400;
+}
+
+h2 {
+  font-size: 1.5rem;
+  margin: 2.5rem 0 0.75rem;
+  font-weight: 500;
+}
+
+h3 {
+  font-size: 1.1rem;
+  margin: 1.5rem 0 0.5rem;
+}
+
+p {
+  margin-bottom: 1.1rem;
+}
+
+.lead {
+  font-size: 1.15rem;
+  color: var(--muted);
+  margin-bottom: 2.5rem;
+  line-height: 1.6;
+  max-width: 60ch;
+}
+
+/* --- Hero (home page) --- */
+.hero {
+  padding: 1rem 0 2rem;
+  border-bottom: 1px solid var(--border);
+  margin-bottom: 2.5rem;
+}
+
+.hero .kicker {
+  display: inline-block;
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  color: var(--accent);
+  margin-bottom: 1rem;
+  font-weight: 500;
+}
+
+/* --- Home page section cards (FOUR IN ONE ROW) --- */
+.section-grid {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 0.85rem;
+  margin-top: 1.5rem;
+}
+
+.section-card {
+  display: block;
+  padding: 1.25rem 1rem;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  background: var(--bg-elevated);
+  transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+  color: var(--ink);
+  text-align: center;
+}
+
+.section-card:hover {
+  transform: translateY(-3px);
+  box-shadow: var(--shadow-lift);
+  border-color: var(--accent-soft);
+  border-bottom-color: var(--accent-soft);
+}
+
+.section-card .card-icon {
+  font-size: 1.6rem;
+  margin-bottom: 0.5rem;
+  display: block;
+  line-height: 1;
+}
+
+.section-card h3 {
+  margin: 0 0 0.3rem;
+  font-family: var(--serif);
+  font-size: 1.05rem;
+  font-weight: 500;
+  color: var(--ink);
+}
+
+.section-card p {
+  margin: 0;
+  color: var(--muted);
+  font-size: 0.82rem;
+  line-height: 1.45;
+}
+
+/* Stack cards on tablets → 2 columns, on phones → 1 column */
+@media (max-width: 720px) {
+  .section-grid { grid-template-columns: repeat(2, 1fr); }
+}
+@media (max-width: 420px) {
+  .section-grid { grid-template-columns: 1fr; }
+}
+
+/* --- "How to add a new entry" info block (appears on list pages) --- */
+.how-to-add {
+  background: var(--accent-soft);
+  border-left: 3px solid var(--accent);
+  border-radius: 6px;
+  padding: 1rem 1.25rem;
+  margin: 1.5rem 0 2rem;
+  font-size: 0.9rem;
+  color: #6a3a2e;
+  line-height: 1.55;
+}
+
+.how-to-add strong {
+  display: block;
+  font-family: var(--serif);
+  font-size: 1rem;
+  margin-bottom: 0.35rem;
+  color: var(--accent-deep);
+}
+
+.how-to-add code {
+  background: rgba(255,255,255,0.6);
+  padding: 0.1rem 0.35rem;
+  border-radius: 3px;
+  font-size: 0.85em;
+}
+
+/* --- Lists (articles, tools) --- */
+.entry-list {
+  list-style: none;
+  margin-top: 1rem;
+}
+
+.entry-list li {
+  padding: 1.1rem 0;
+  border-bottom: 1px solid var(--border);
+}
+
+.entry-list li:last-child {
+  border-bottom: none;
+}
+
+.entry-list .entry-title {
+  font-family: var(--serif);
+  font-size: 1.15rem;
+  font-weight: 500;
+}
+
+.entry-list .entry-date {
+  display: block;
+  color: var(--muted);
+  font-size: 0.85rem;
+  margin-top: 0.3rem;
+}
+
+.entry-list .entry-langs {
+  display: inline-block;
+  margin-left: 0.75rem;
+  font-family: var(--sans);
+  font-size: 0.78rem;
+  color: var(--muted);
+  vertical-align: middle;
+}
+.entry-list .entry-langs a {
+  color: var(--accent-deep);
+}
+
+/* --- Painting gallery --- */
+.gallery {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1rem;
+  margin-top: 1.5rem;
+}
+
+@media (max-width: 600px) {
+  .gallery { grid-template-columns: repeat(2, 1fr); }
+}
+
+.gallery img {
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  object-fit: cover;
+  border-radius: 6px;
+  cursor: zoom-in;
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+  background: #eee;
+  box-shadow: var(--shadow);
+}
+
+.gallery img:hover {
+  transform: scale(1.02);
+  box-shadow: var(--shadow-lift);
+}
+
+.gallery .placeholder {
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  border: 2px dashed var(--border);
+  border-radius: 6px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--muted);
+  font-size: 0.85rem;
+  text-align: center;
+  padding: 1rem;
+  background: var(--bg-elevated);
+}
+
+/* --- Lightbox --- */
+.lightbox {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(20, 15, 10, 0.92);
+  z-index: 100;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem;
+  cursor: zoom-out;
+  animation: fadeIn 0.2s ease;
+}
+
+.lightbox.open { display: flex; }
+
+.lightbox-figure {
+  margin: 0;
+  max-width: 100%;
+  max-height: 90vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.9rem;
+}
+
+.lightbox img {
+  max-width: 100%;
+  max-height: 80vh;
+  border-radius: 6px;
+  box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+}
+
+.lightbox-caption {
+  color: #f1ece2;
+  font-family: var(--font-serif, serif);
+  font-size: 0.95rem;
+  font-style: italic;
+  text-align: center;
+  max-width: 60ch;
+  opacity: 0.9;
+  line-height: 1.5;
+}
+
+/* Grouped gallery cluster (e.g. multiple photos of a single work) */
+.gallery-group {
+  grid-column: 1 / -1;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  margin: 0.25rem 0;
+  padding: 1rem;
+  border: 1px dashed var(--border);
+  border-radius: 8px;
+  background: rgba(0, 0, 0, 0.015);
+}
+
+.gallery-group-title {
+  font-family: var(--font-serif, serif);
+  font-size: 1rem;
+  font-style: italic;
+  color: var(--muted);
+  margin: 0;
+}
+
+.gallery-group-items {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0.75rem;
+}
+
+/* Modifier: 4 columns (e.g. 8 photos in a tidy 2-row grid) */
+.gallery-group-items--4 {
+  grid-template-columns: repeat(4, 1fr);
+}
+
+/* Modifier: 2 columns (for pairs of photos) */
+.gallery-group-items--2 {
+  grid-template-columns: repeat(2, 1fr);
+  max-width: 520px;
+}
+
+/* Modifier: single photo (shown at a comfortable size, not stretched) */
+.gallery-group-items--1 {
+  grid-template-columns: 1fr;
+  max-width: 320px;
+}
+
+@media (max-width: 600px) {
+  .gallery-group-items { grid-template-columns: repeat(2, 1fr); }
+  .gallery-group-items--4 { grid-template-columns: repeat(2, 1fr); }
+}
+
+.gallery-group-items img {
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  object-fit: cover;
+  border-radius: 6px;
+  cursor: zoom-in;
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+  background: #eee;
+  box-shadow: var(--shadow);
+}
+
+.gallery-group-items img:hover {
+  transform: scale(1.02);
+  box-shadow: var(--shadow-lift);
+}
+
+@keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+
+/* Inline photo set inside an Other-projects entry */
+.project-gallery {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 0.75rem;
+  margin-top: 0.85rem;
+  max-width: 520px;
+}
+
+.project-gallery img {
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  object-fit: cover;
+  border-radius: 6px;
+  cursor: zoom-in;
+  background: #eee;
+  box-shadow: var(--shadow);
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.project-gallery img:hover {
+  transform: scale(1.02);
+  box-shadow: var(--shadow-lift);
+}
+
+/* --- Article body --- */
+.article-meta {
+  color: var(--muted);
+  font-size: 0.9rem;
+  margin-bottom: 2rem;
+  font-style: italic;
+}
+
+article {
+  font-family: var(--serif);
+  font-size: 1.05rem;
+  font-weight: 300;
+}
+
+article p { margin-bottom: 1.3rem; line-height: 1.75; }
+
+article h2 {
+  font-family: var(--serif);
+  font-size: 1.3rem;
+  margin: 2.5rem 0 1rem;
+}
+
+article ul, article ol {
+  margin: 0 0 1.3rem 1.5rem;
+  line-height: 1.75;
+}
+
+article li { margin-bottom: 0.4rem; }
+
+/* Article inline figure (image + caption) */
+.article-figure {
+  margin: 2rem auto;
+  text-align: center;
+}
+
+.article-figure img {
+  display: block;
+  max-width: 100%;
+  height: auto;
+  border-radius: 8px;
+  box-shadow: var(--shadow);
+  margin: 0 auto 0.5rem;
+  background: var(--accent-soft);
+}
+
+.article-figure figcaption {
+  font-family: var(--sans);
+  font-size: 0.85rem;
+  color: var(--muted);
+  font-style: italic;
+}
+
+/* Reference list */
+.article-refs {
+  font-family: var(--sans);
+  font-size: 0.9rem;
+  color: var(--muted);
+  line-height: 1.6;
+}
+
+.article-refs li { margin-bottom: 0.75rem; }
+.article-refs a { word-break: break-all; }
+
+/* --- Footer --- */
+.site-footer {
+  border-top: 1px solid var(--border);
+  padding: 1.75rem 0;
+  color: var(--muted);
+  font-size: 0.82rem;
+  text-align: center;
+  font-family: var(--sans);
+}
+
+/* --- Buttons / back links --- */
+.back-link {
+  display: inline-block;
+  margin-bottom: 1.5rem;
+  color: var(--muted);
+  font-size: 0.9rem;
+  border-bottom: none;
+}
+.back-link:hover { color: var(--accent); border-bottom: none; }
+
+/* --- Article language toggle (中文 / English) --- */
+.lang-toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  padding: 0.3rem 0.9rem;
+  background: var(--bg-elevated);
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  font-family: var(--sans);
+  font-size: 0.85rem;
+  margin-bottom: 2rem;
+}
+.lang-toggle strong {
+  color: var(--accent-deep);
+  font-weight: 500;
+}
+.lang-toggle a {
+  color: var(--muted);
+  border-bottom: none;
+}
+.lang-toggle a:hover {
+  color: var(--accent);
+}
+.lang-toggle .lang-sep {
+  color: var(--border);
+}
+
+/* --- About-page portrait --- */
+.portrait {
+  display: block;
+  width: 100%;
+  height: auto;        /* preserve the image's natural proportions */
+  border-radius: 16px; /* rounded rectangle, not a circle */
+  box-shadow: var(--shadow-lift);
+}
+
+/* Two-column About layout: text on the left, portrait as a right-hand
+   sidebar. On narrow screens (phones / small tablets) we stack with
+   the portrait on top so the face still greets the visitor first. */
+.about-layout {
+  display: flex;
+  gap: 3rem;
+  align-items: flex-start;
+  margin-top: 1rem;
+}
+
+.about-text {
+  flex: 1 1 auto;
+  min-width: 0;  /* lets long words wrap inside flex children */
+}
+
+.about-sidebar {
+  flex: 0 0 240px;
+  position: sticky;
+  top: 2rem;     /* stays visible while scrolling through the bio */
+}
+
+@media (max-width: 720px) {
+  .about-layout {
+    flex-direction: column-reverse;
+    gap: 1.75rem;
+  }
+  .about-sidebar {
+    flex: none;
+    position: static;
+    max-width: 220px;
+    margin: 0 auto;
+  }
+}
+
+/* --- Embedded tool (iframe) --- */
+.tool-note {
+  margin: 0.5rem 0 0.85rem;
+  color: var(--ink);
+  font-size: 0.95rem;
+  line-height: 1.55;
+  max-width: 62ch;
+}
+
+.tool-embed {
+  position: relative;
+  width: 100%;
+  max-width: 960px;
+  aspect-ratio: 4 / 3;
+  margin-top: 0.5rem;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: var(--shadow-lift);
+  background: #f0ece4;
+}
+
+.tool-embed iframe {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  border: 0;
+  display: block;
+}
+
+@media (max-width: 600px) {
+  .tool-embed { aspect-ratio: 3 / 4; }
+}
+
+/* --- Coming soon pill --- */
+.coming-soon {
+  display: inline-block;
+  padding: 0.15rem 0.65rem;
+  background: var(--accent-soft);
+  color: var(--accent-deep);
+  border-radius: 999px;
+  font-size: 0.72rem;
+  font-weight: 500;
+  margin-left: 0.5rem;
+  vertical-align: middle;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+/* --- Mobile tweaks --- */
+@media (max-width: 500px) {
+  html { font-size: 16px; }
+  h1 { font-size: 2rem; }
+  .site-header .container { flex-direction: column; align-items: flex-start; gap: 0.75rem; }
+  .site-nav { gap: 1rem; }
+}

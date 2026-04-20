@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Lanjia — Personal Site</title>
+  <meta name="description" content="Lanjia's personal website: articles, paintings, and small web tools." />
+  <link rel="stylesheet" href="assets/css/style.css" />
+</head>
+<body>
+  <header class="site-header">
+    <div class="container">
+      <div class="site-title"><a href="index.html">Lanjia</a></div>
+      <nav class="site-nav">
+        <a href="index.html" class="active">Home</a>
+        <a href="about.html">About</a>
+        <a href="articles/index.html">Articles</a>
+        <a href="paintings/index.html">Graphics</a>
+        <a href="tools/index.html">Tools</a>
+        <a href="other-projects/index.html">Other projects</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <div class="container">
+
+      <!-- ============================================================
+           Home-page hero animation — three-language greeting wrapped
+           in concentric brainwave rings (alpha / beta / theta shapes)
+           that ripple outside-in on a warm beige backdrop.
+           ============================================================ -->
+      <section class="hero-animation" aria-label="Animated greeting">
+        <svg class="hero-animation__svg"
+             viewBox="0 0 800 800"
+             preserveAspectRatio="xMidYMid slice"
+             aria-hidden="true"></svg>
+
+        <!-- 👇 EDIT YOUR THREE GREETING LINES HERE 👇 -->
+        <div class="hero-animation__text">
+          <div class="line-en">Hi, I'm Lanjia Wei</div>
+          <!-- HTML numeric entities guarantee each pinyin letter is a
+               single precomposed Unicode codepoint, so browsers don't
+               accidentally render tone marks as separate combining
+               diacritics on the following space. -->
+          <div class="line-pinyin">N&#x01D0; h&#x01CE;o, w&#x01D2; sh&#xEC; W&#xE8;i L&#xE1;n Ji&#x101;</div>
+          <div class="line-fr">Salut, je m'appelle Lanjia Wei</div>
+        </div>
+        <!-- 👆 EDIT YOUR THREE GREETING LINES ABOVE 👆 -->
+      </section>
+
+      <!-- ============================================================
+           👇 EDIT YOUR TAGLINE + INTRO PARAGRAPH BELOW 👇
+           ============================================================ -->
+      <section class="hero">
+        <span class="kicker">Psychology student · Artist · Learner</span>
+        <p class="lead">
+          I'm a psychology student studying the mind, but I let mine wander.
+          Picking just one path feels too limiting. So, I'm exploring them all.
+          You might catch me writing, painting, or doing photography. Other
+          days, I'm cooking, building websites, or strumming the ukulele and
+          piano. I'm just here to find the beauty in the everyday and live
+          in the flow state.
+        </p>
+      </section>
+      <!-- 👆 EDIT YOUR TAGLINE + INTRO PARAGRAPH ABOVE 👆 -->
+
+      <h2>Explore</h2>
+
+      <div class="section-grid">
+        <a class="section-card" href="about.html">
+          <span class="card-icon">✦</span>
+          <h3>About</h3>
+          <p>Who I am</p>
+        </a>
+        <a class="section-card" href="articles/index.html">
+          <span class="card-icon">✎</span>
+          <h3>Articles</h3>
+          <p>Essays & notes</p>
+        </a>
+        <a class="section-card" href="paintings/index.html">
+          <span class="card-icon">❋</span>
+          <h3>Graphics</h3>
+          <p>Paintings, paper-cuts & photos</p>
+        </a>
+        <a class="section-card" href="tools/index.html">
+          <span class="card-icon">◈</span>
+          <h3>Tools</h3>
+          <p>Mini web widgets</p>
+        </a>
+        <a class="section-card" href="other-projects/index.html">
+          <span class="card-icon">❖</span>
+          <h3>Other projects</h3>
+          <p>Events & collaborations</p>
+        </a>
+      </div>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      &copy; <span id="year">2026</span> Lanjia
+    </div>
+  </footer>
+
+  <script src="assets/js/main.js"></script>
+  <script>document.getElementById("year").textContent = new Date().getFullYear();</script>
+
+  <script>
+    // ==========================================================
+    // Brainwave rings generator
+    // Draws concentric wavy circles that look like EEG traces
+    // (alpha / beta / theta bands) wrapped into rings, with a
+    // fade from the outside inward — outer rings barely visible,
+    // inner rings more defined. Each ring rotates slowly.
+    // ==========================================================
+    (function () {
+      const svg = document.querySelector(".hero-animation__svg");
+      if (!svg) return;
+
+      const SVG_NS = "http://www.w3.org/2000/svg";
+      const CX = 400, CY = 400;      // center of the 800x800 viewBox
+      const STEPS = 900;             // high density so sharp spikes render crisply
+
+      // Each entry = one brainwave ring, representing a single EEG band.
+      // Bands have distinct visual signatures:
+      //   delta (0.5–3 Hz)  → very slow, smooth, large swells
+      //   theta (4–7 Hz)    → slow rhythm, moderate amplitude
+      //   alpha (8–12 Hz)   → steady sinusoidal rhythm, classic "relaxed" EEG
+      //   beta  (13–30 Hz)  → fast, low-amplitude, busy
+      //   spike             → quiet baseline punctuated by narrow tall peaks
+      const rings = [
+        { radius: 390, amplitude:  8, band: "beta",  rotate: 80, dir: 1,  opacity: 0.05, width: 0.6 },
+        { radius: 362, amplitude: 12, band: "theta", rotate: 60, dir: -1, opacity: 0.07, width: 0.7 },
+        { radius: 333, amplitude: 10, band: "alpha", rotate: 95, dir: 1,  opacity: 0.10, width: 0.7 },
+        { radius: 303, amplitude:  7, band: "beta",  rotate: 45, dir: -1, opacity: 0.13, width: 0.7 },
+        { radius: 272, amplitude: 16, band: "theta", rotate: 70, dir: 1,  opacity: 0.17, width: 0.8 },
+        { radius: 240, amplitude: 11, band: "alpha", rotate: 55, dir: -1, opacity: 0.22, width: 0.9 },
+        { radius: 207, amplitude: 20, band: "delta", rotate: 85, dir: 1,  opacity: 0.28, width: 1.0 },
+        { radius: 175, amplitude:  8, band: "beta",  rotate: 50, dir: -1, opacity: 0.36, width: 0.9 },
+        { radius: 144, amplitude: 12, band: "alpha", rotate: 75, dir: 1,  opacity: 0.46, width: 1.0 },
+        { radius: 114, amplitude: 16, band: "theta", rotate: 60, dir: -1, opacity: 0.56, width: 1.1 },
+        { radius:  86, amplitude: 11, band: "spike", rotate: 90, dir: 1,  opacity: 0.68, width: 1.0 },
+        { radius:  60, amplitude:  9, band: "alpha", rotate: 55, dir: -1, opacity: 0.78, width: 1.1 },
+      ];
+
+      // --- Sharp-EEG signal generator --------------------------------
+      // Real EEG traces aren't smooth sinusoids — they have sharp
+      // triangular peaks, higher-frequency flutter, and occasional
+      // narrow voltage spikes. We simulate that look with:
+      //   1. A triangle wave at the band frequency (sharp peaks)
+      //   2. A 3× harmonic triangle for edginess
+      //   3. A high-frequency flutter
+      //   4. Very narrow "spike" peaks via cos^18 (sharp transients)
+      // All terms use integer multiples of `waves` so the ring closes
+      // seamlessly at 360°.
+
+      // Triangle wave in [-1, 1], period 2π — sharp corners at ±1.
+      function triangle(x) {
+        return (2 / Math.PI) * Math.asin(Math.sin(x));
+      }
+
+      // Deterministic pseudo-random in [0, 1) from a seed.
+      function prng(seed) {
+        const v = Math.sin(seed * 12.9898) * 43758.5453;
+        return v - Math.floor(v);
+      }
+
+      // Asymmetric power — sharper on one side, preserves sign.
+      function asymPow(x, p) {
+        return Math.sign(x) * Math.pow(Math.abs(x), p);
+      }
+
+      // Band-specific signal generators. Each returns a value roughly
+      // in [-1.2, 1.2] given t in [0, 2π]. All use INTEGER multiples
+      // of 2π so the ring closes seamlessly.
+      const BAND_SIGNALS = {
+        // Delta: very slow, large swells — sleep-like
+        delta: function (t, s) {
+          const env = 0.85 + 0.15 * Math.sin(t * 1 + s);
+          return Math.sin(t * 3 + s) * env;
+        },
+
+        // Theta: slower rhythm, amplitude modulated, slightly asymmetric
+        theta: function (t, s) {
+          const base = Math.sin(t * 6 + s);
+          const env = 0.6 + 0.4 * Math.sin(t * 2 + s * 1.3);
+          // Peaks slightly sharper than troughs
+          return asymPow(base, 0.85) * env;
+        },
+
+        // Alpha: the classic "relaxed" EEG — regular 10 Hz-ish sinusoid,
+        // slowly waxing and waning in amplitude (like alpha bursts)
+        alpha: function (t, s) {
+          const base = Math.sin(t * 11 + s);
+          const env = 0.55 + 0.45 * Math.sin(t * 2 + s * 0.7);
+          return base * env;
+        },
+
+        // Beta: fast, busy, low-amplitude, mixed frequencies
+        beta: function (t, s) {
+          let v = 0;
+          v += 0.55 * Math.sin(t * 22 + s);
+          v += 0.35 * Math.sin(t * 28 + s * 1.7);
+          v += 0.25 * Math.sin(t * 19 + s * 2.3);
+          // Keep beta small — it's low-amplitude in real EEG
+          return v * 0.6;
+        },
+
+        // Sharp-wave / spike ring: quiet baseline punctuated by a few
+        // very narrow tall peaks per revolution (like epileptiform spikes)
+        spike: function (t, s) {
+          const spikeCount = 3 + Math.floor(prng(s) * 3); // 3–5
+          const sp = Math.max(0, Math.cos(t * spikeCount + s));
+          const spikes = 1.3 * Math.pow(sp, 22);
+          // Tiny underlying alpha for context
+          const baseline = 0.15 * Math.sin(t * 9 + s * 1.7);
+          return spikes + baseline;
+        },
+      };
+
+      function eegSignal(t, band, seed) {
+        const gen = BAND_SIGNALS[band] || BAND_SIGNALS.alpha;
+        return gen(t, seed);
+      }
+
+      // Build an SVG path tracing a ring whose radius is modulated by
+      // the chosen EEG band's signal at each angle t around the circle.
+      function eegRingPath(cx, cy, radius, amplitude, band, seed) {
+        let d = "";
+        for (let i = 0; i <= STEPS; i++) {
+          const t = (i / STEPS) * Math.PI * 2;
+          const r = radius + amplitude * eegSignal(t, band, seed);
+          const x = cx + r * Math.cos(t);
+          const y = cy + r * Math.sin(t);
+          d += (i === 0 ? "M " : " L ") + x.toFixed(2) + "," + y.toFixed(2);
+        }
+        return d + " Z";
+      }
+
+      rings.forEach((ring, index) => {
+        const path = document.createElementNS(SVG_NS, "path");
+        const seed = index * 1.37 + 0.5; // unique stable seed per ring
+        path.setAttribute("d", eegRingPath(CX, CY, ring.radius, ring.amplitude, ring.band, seed));
+        path.setAttribute("stroke-width", ring.width);
+        path.style.opacity = ring.opacity;
+        // Rotation speed + direction per ring for subtle, organic motion
+        path.style.animationDuration = ring.rotate + "s";
+        path.style.animationDirection = ring.dir === 1 ? "normal" : "reverse";
+        svg.appendChild(path);
+      });
+    })();
+  </script>
+</body>
+</html>
